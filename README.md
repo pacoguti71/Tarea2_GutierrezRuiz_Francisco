@@ -80,7 +80,7 @@ app/
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tuusuario/PikminApp.git
+   git clone https://github.com/pacoguti71/Tarea2_GutierrezRuiz_Francisco.git
 2. Abre el proyecto con Android Studio.
 3. Espera la sincronización de Gradle.
 4. Ejecuta la aplicación en un emulador o dispositivo físico con Android 8.0 o superior.
