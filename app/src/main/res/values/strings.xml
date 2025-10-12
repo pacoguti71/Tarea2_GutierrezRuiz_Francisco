@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Tarea2_GutierrezRuiz_Francisco</string>
+    <string name="label_familia">Familia:</string>
+    <string name="terrestre">Terrestre</string>
+    <string name="acuatico">Acuático</string>
+    <string name="aereo">Aéreo</string>
+    <string name="label_descripcion">Descripción:</string>
+    <string name="label_caracteristica1">Característica 1:</string>
+    <string name="label_caracteristica2">Característica 2:</string>
+    <string name="label_caracteristica3">Característica 3:</string>
+    <string name="imagen_del_pikmin_seleccionado">Imagen del pikmin seleccionado</string>
+    <string name="imagen_del_pikmin">Imagen del pikmin</string>
+    <string name="se_ha_seleccionado_un_pikmin">Se ha seleccionado el pikmin: %s</string>
+    <string name="bienvenido_al_mundo_pikmin">¡Bienvenido al mundo Pikmin!</string>
+</resources>
