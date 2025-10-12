@@ -2,7 +2,11 @@ package dam.pmdm.tarea2_gutierrezruiz_francisco
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         // Establece el diseño de la actividad. root es la vista raíz del diseño
         setContentView(binding.root)
+        // Configura la barra de herramientas creada por mí (toolbar)
+        setSupportActionBar(binding.toolbar)
         // Configura el comportamiento de la barra de insets para que la vista principal tenga padding alrededor
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,6 +72,41 @@ class MainActivity : AppCompatActivity() {
         }
         // Asigna el adaptador del RecyclerView para que lo use
         binding.recyclerView.adapter = adapter
+    }
+
+    // Sobreescribe el metodo onCreateOptionsMenu de la actividad para mostrar el menu
+    // El menú se añade dinámicamente en tiempo de ejecución, por lo que no forma parte del layout estático de la actividad.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // El menuInflater toma el fichero XML y crea el menú a partir de él
+        menuInflater.inflate(R.menu.menu, menu)
+        return true // Devuelve 'true' para indicar que el menú debe mostrarse
+    }
+
+    // Sobreescribe el metodo onOptionsItemSelected para gestionar los items del menu
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Usamos una estructura 'when' para comprobar qué item se ha pulsado
+        return when (item.itemId) {
+            R.id.action_acercade -> {
+                // Diálogo que se muestra al pulsar "Acerca de"
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.acerca_de))
+                    .setMessage(getString(R.string.desarrollado_por))
+                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                        // Acción al pulsar "Ok"
+                        dialog.dismiss()
+                    }
+                    .show() // Muestra el diálogo
+                true // Devuelve 'true' para indicar que has gestionado el clic
+            }
+
+            R.id.action_ajustes -> {
+                // Código que se ejecuta al pulsar "Ajustes"
+                Toast.makeText(this, "Has pulsado 'Ajustes'", Toast.LENGTH_SHORT).show()
+                true // Devuelve 'true' para indicar que has gestionado el clic
+            }
+
+            else -> super.onOptionsItemSelected(item) // Si no es un item que conozcas, deja que el sistema lo gestione. Sobre todo la flecha de retroceso
+        }
     }
 
 }

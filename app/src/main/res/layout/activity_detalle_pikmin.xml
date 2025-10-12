@@ -1,149 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detallePikminActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/crema"
-    android:fillViewport="true">
+    tools:context=".DetallePikminActivity">
 
-    <LinearLayout
-        android:id="@+id/main"
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/verde_oscuro"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        tools:context=".DetallePikminActivity">
-
-        <TextView
-            android:id="@+id/nombreDetalle"
-            style="@style/NombreDetalle" />
-
-        <TextView
-            android:id="@+id/nombreCientificoDetalle"
-            style="@style/NombreCientificoDetalle" />
-
-        <ImageView
-            android:id="@+id/imagenDetalle"
-            style="@style/ImagenDetalle"
-            android:contentDescription="@string/imagen_del_pikmin_seleccionado" />
+        android:layout_height="0dp"
+        android:background="@color/crema"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            tools:context=".DetallePikminActivity">
 
             <TextView
-                android:id="@+id/label_familia"
-                style="@style/EtiquetasDetalle"
-                android:text="@string/label_familia" />
+                android:id="@+id/nombreDetalle"
+                style="@style/NombreDetalle" />
 
             <TextView
-                android:id="@+id/familiaDetalle"
-                style="@style/FamiliaDetalle"
-                android:layout_weight="2" />
-        </LinearLayout>
+                android:id="@+id/nombreCientificoDetalle"
+                style="@style/NombreCientificoDetalle" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imagenDetalle"
+                style="@style/ImagenDetalle"
+                android:contentDescription="@string/imagen_del_pikmin_seleccionado" />
 
-            <TableRow style="@style/TablasDetalle">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/label_familia"
                     style="@style/EtiquetasDetalle"
-                    android:layout_weight="1"
-                    android:text="@string/terrestre" />
+                    android:layout_gravity="center"
+                    android:text="@string/label_familia" />
 
                 <TextView
-                    style="@style/EtiquetasDetalle"
-                    android:layout_weight="1"
-                    android:text="@string/acuatico" />
+                    android:id="@+id/familiaDetalle"
+                    style="@style/FamiliaDetalle"
+                    />
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow style="@style/TablasDetalle">
+
+                    <TextView
+                        style="@style/EtiquetasDetalle"
+                        android:layout_weight="1"
+                        android:text="@string/terrestre" />
+
+                    <TextView
+                        style="@style/EtiquetasDetalle"
+                        android:layout_weight="1"
+                        android:text="@string/acuatico" />
+
+                    <TextView
+                        style="@style/EtiquetasDetalle"
+                        android:layout_weight="1"
+                        android:text="@string/aereo" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/TablasDetalle"
+                    android:layout_marginTop="0dp">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTerrestre"
+                        style="@style/CheckBoxDetalle" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxAcuatico"
+                        style="@style/CheckBoxDetalle" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxAereo"
+                        style="@style/CheckBoxDetalle" />
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/label_descripcion"
                     style="@style/EtiquetasDetalle"
-                    android:layout_weight="1"
-                    android:text="@string/aereo" />
-            </TableRow>
+                    android:text="@string/label_descripcion" />
 
-            <TableRow
-                style="@style/TablasDetalle"
-                android:layout_marginTop="0dp">
+                <TextView
+                    android:id="@+id/descripcionDetalle"
+                    style="@style/TextoConBorde" />
+            </LinearLayout>
 
-                <CheckBox
-                    android:id="@+id/checkBoxTerrestre"
-                    style="@style/CheckBoxDetalle" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/checkBoxAcuatico"
-                    style="@style/CheckBoxDetalle" />
+                <TextView
+                    android:id="@+id/label_caracteristica1"
+                    style="@style/EtiquetasDetalle"
+                    android:text="@string/label_caracteristica1" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxAereo"
-                    style="@style/CheckBoxDetalle" />
-            </TableRow>
+                <TextView
+                    android:id="@+id/caracteristica1Detalle"
+                    style="@style/TextoConBorde" />
+            </LinearLayout>
 
-        </TableLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/label_caracteristica2"
+                    style="@style/EtiquetasDetalle"
+                    android:text="@string/label_caracteristica2" />
 
-            <TextView
-                android:id="@+id/label_descripcion"
-                style="@style/EtiquetasDetalle"
-                android:text="@string/label_descripcion" />
+                <TextView
+                    android:id="@+id/caracteristica2Detalle"
+                    style="@style/TextoConBorde" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/descripcionDetalle"
-                style="@style/TextoConBorde" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/label_caracteristica3"
+                    style="@style/EtiquetasDetalle"
+                    android:text="@string/label_caracteristica3" />
+
+                <TextView
+                    android:id="@+id/caracteristica3Detalle"
+                    style="@style/TextoConBorde" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/label_caracteristica1"
-                style="@style/EtiquetasDetalle"
-                android:text="@string/label_caracteristica1" />
-
-            <TextView
-                android:id="@+id/caracteristica1Detalle"
-                style="@style/TextoConBorde" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/label_caracteristica2"
-                style="@style/EtiquetasDetalle"
-                android:text="@string/label_caracteristica2" />
-
-            <TextView
-                android:id="@+id/caracteristica2Detalle"
-                style="@style/TextoConBorde" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/label_caracteristica3"
-                style="@style/EtiquetasDetalle"
-                android:text="@string/label_caracteristica3" />
-
-            <TextView
-                android:id="@+id/caracteristica3Detalle"
-                style="@style/TextoConBorde" />
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

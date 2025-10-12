@@ -72,10 +72,9 @@
 
     <!-- Familia del Pikmin de la pantalla detalles de pikmin -->
     <style name="FamiliaDetalle">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:fontFamily">@font/pikminneue</item>
         <item name="android:textSize">20sp</item>
     </style>

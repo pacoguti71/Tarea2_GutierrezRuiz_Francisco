@@ -22,7 +22,7 @@ class DetallePikminActivity : AppCompatActivity() {
         binding = ActivityDetallePikminBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Configura el comportamiento de la barra de insets para que la vista principal tenga padding alrededor
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
