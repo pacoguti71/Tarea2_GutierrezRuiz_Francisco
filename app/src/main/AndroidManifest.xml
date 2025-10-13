@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tarea2_GutierrezRuiz_Francisco">
         <activity
+            android:name=".AjustesActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetallePikminActivity"
             android:exported="false" />
         <activity

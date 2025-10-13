@@ -44,9 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         // Muestra un Snackbar con un mensaje de bienvenida
         Snackbar.make(
-            binding.main,
-            getString(R.string.bienvenido_al_mundo_pikmin),
-            Snackbar.LENGTH_LONG
+            binding.main, getString(R.string.bienvenido_al_mundo_pikmin), Snackbar.LENGTH_LONG
         ).show()
 
         // Crea un objeto adaptador con los datos de la lista de objetos Pikmin y lo asigna al adaptador del RecyclerView.
@@ -88,22 +86,21 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_acercade -> {
                 // Diálogo que se muestra al pulsar "Acerca de"
-                AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.acerca_de))
+                AlertDialog.Builder(this).setTitle(getString(R.string.acerca_de))
                     .setMessage(getString(R.string.desarrollado_por))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                         // Acción al pulsar "Ok"
                         dialog.dismiss()
-                    }
-                    .show() // Muestra el diálogo
+                    }.show() // Muestra el diálogo
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
 
             R.id.action_ajustes -> {
-                // Código que se ejecuta al pulsar "Ajustes"
-                Toast.makeText(this, "Has pulsado 'Ajustes'", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, AjustesActivity::class.java)
+                startActivity(intent)
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
+
 
             else -> super.onOptionsItemSelected(item) // Si no es un item que conozcas, deja que el sistema lo gestione. Sobre todo la flecha de retroceso
         }

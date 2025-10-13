@@ -16,5 +16,6 @@
     <string name="ajustes">Ajustes</string>
     <string name="desarrollado_por">Aplicación desarrollada por Francisco Gutiérrez Ruiz</string>
     <string name="ok">Aceptar</string>
-
+    <string name="tema">Tema oscuro</string>
+    <string name="idioma">Español</string>
 </resources>
