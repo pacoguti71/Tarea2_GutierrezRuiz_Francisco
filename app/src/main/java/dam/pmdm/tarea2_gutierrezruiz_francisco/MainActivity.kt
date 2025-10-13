@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -86,12 +85,15 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_acercade -> {
                 // Diálogo que se muestra al pulsar "Acerca de"
-                AlertDialog.Builder(this).setTitle(getString(R.string.acerca_de))
+                AlertDialog.Builder(this)
+                    .setIcon(R.drawable.icono) // <-- Usa el nombre de tu fichero PNG
+
+                    .setTitle(getString(R.string.acerca_de))
                     .setMessage(getString(R.string.desarrollado_por))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                        // Acción al pulsar "Ok"
                         dialog.dismiss()
-                    }.show() // Muestra el diálogo
+                    }
+                    .show() // Muestra el diálogo
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
 
