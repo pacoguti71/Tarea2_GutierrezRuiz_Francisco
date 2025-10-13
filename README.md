@@ -41,28 +41,36 @@ Incluye una **toolbar** con las opciones **"Acerca de"** y **"Ajustes"**, con un
 ## 📂 Estructura del proyecto
 
 AndroidManifest.xml
+
 java/dam/pmdm/tarea2_gutierrezruiz_francisco/AjustesActivity.kt
 java/dam/pmdm/tarea2_gutierrezruiz_francisco/DetallePikminActivity.kt
 java/dam/pmdm/tarea2_gutierrezruiz_francisco/MainActivity.kt
 java/dam/pmdm/tarea2_gutierrezruiz_francisco/Pikmin.kt
 java/dam/pmdm/tarea2_gutierrezruiz_francisco/PikminAdapter.kt
+
 res/font/bebas_neue.ttf
 res/font/bitcount.ttf
 res/font/pikminneue.otf
+
 res/layout/activity_ajustes.xml
 res/layout/activity_detalle_pikmin.xml
 res/layout/activity_main.xml
 res/layout/item_layout.xml
+
 res/menu/menu.xml
+
 res/values-en/strings.xml
 res/values/strings.xml
 res/values/strings.xml
 res/values-en/strings.xml
+
 res/values/themes.xml
 res/values-night/themes.xml
 res/values/themes.xml
 res/values-night/themes.xml
+
 res/values/colors.xml
+
 res/values/styles.xml
 
 ---
