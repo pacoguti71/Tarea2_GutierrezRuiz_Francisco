@@ -1,6 +1,7 @@
 package dam.pmdm.tarea2_gutierrezruiz_francisco
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityDetallePikminBinding
+import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityMainBinding
 
 // Actividad que muestra los detalles de un pikmin
 class DetallePikminActivity : AppCompatActivity() {
@@ -18,9 +20,16 @@ class DetallePikminActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Habilita el modo de aristas redondeadas para la barra de estado
         enableEdgeToEdge()
-        // Establece el diseño de la actividad
+        // Infla el diseño de la actividad utilizando el binding. En la variable binding se almacena el diseño inflado con todos sus elementos
         binding = ActivityDetallePikminBinding.inflate(layoutInflater)
+        // Establece el diseño de la actividad. root es la vista raíz del diseño
         setContentView(binding.root)
+        // Configura la barra de herramientas creada por mí (toolbar) porque el tema es NoActionBar
+        setSupportActionBar(binding.toolbarLayout.toolbar)
+        // Habilita el botón de retroceso en la barra de herramientas
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Establece el titulo de la actividad en la barra de herramientas
+        supportActionBar?.title = getString(R.string.detalle_pikmin)
         // Configura el comportamiento de la barra de insets para que la vista principal tenga padding alrededor
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -84,6 +93,21 @@ class DetallePikminActivity : AppCompatActivity() {
         // Si el texto está vacío, oculta todas las vistas. Si no, muestra todas las vistas.
         val visibility = if (text.isNullOrBlank()) View.GONE else View.VISIBLE
         views.forEach { it.visibility = visibility }
+    }
+
+    // Sobrescribe el metodo onOptionsItemSelected de la actividad. Recibe un objeto MenuItem con la opción seleccionada
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            // Si se selecciona el botón de retroceso, llama al metodo onBackPressed de la actividad
+            android.R.id.home -> {
+                // Cierra la actividad actual y vuelve a la actividad anterior
+                onBackPressedDispatcher.onBackPressed()
+                // Devuelve true para indicar que se ha manejado el evento
+                true
+            }
+            // Si se selecciona cualquier otra opción, llama al metodo onOptionsItemSelected de la clase padre
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

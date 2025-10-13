@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--Layout principal que envuelve los distintos elementos-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +9,15 @@
     android:layout_height="match_parent"
     tools:context=".AjustesActivity">
 
+    <!--Toolbar personalizada-->
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Switch para la eleccion del idioma. El elemento simple Switch está obsoleto, se reemplaza por MaterialSwitch -->
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/switchIdioma"
         android:layout_width="157dp"
@@ -18,6 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--Switch para la eleccion del tema. El elemento simple Switch está obsoleto, se reemplaza por MaterialSwitch -->
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/switchTema"
         android:layout_width="157dp"
@@ -28,7 +40,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchIdioma" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

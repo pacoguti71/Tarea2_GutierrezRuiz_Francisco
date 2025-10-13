@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         // Establece el diseño de la actividad. root es la vista raíz del diseño
         setContentView(binding.root)
-        // Configura la barra de herramientas creada por mí (toolbar)
-        setSupportActionBar(binding.toolbar)
+        // Configura la barra de herramientas creada por mí (toolbar) porque el tema es NoActionBar
+        setSupportActionBar(binding.toolbarLayout.toolbar)
         // Configura el comportamiento de la barra de insets para que la vista principal tenga padding alrededor
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -38,12 +39,27 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Crea un objeto PreferencesHelper para gestionar las preferencias del usuario
+        val preferencesHelper= PreferencesHelper(this)
+        // Recupera el estado de la preferencia de modo oscuro
+        val esModoOscuro = preferencesHelper.esModoOscuro()
+        // Comprueba si el modo oscuro está activado
+        if (esModoOscuro) {
+            // Si estaba guardado como oscuro, aplica el modo oscuro
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            // Si no, aplica el modo claro
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         // Asigna un layout al reciclerView para gestionar el diseño en cuadrícula
         binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         // Muestra un Snackbar con un mensaje de bienvenida
         Snackbar.make(
-            binding.main, getString(R.string.bienvenido_al_mundo_pikmin), Snackbar.LENGTH_LONG
+            binding.main,
+            getString(R.string.bienvenido_al_mundo_pikmin),
+            Snackbar.LENGTH_LONG
         ).show()
 
         // Crea un objeto adaptador con los datos de la lista de objetos Pikmin y lo asigna al adaptador del RecyclerView.
@@ -83,11 +99,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Usamos una estructura 'when' para comprobar qué item se ha pulsado
         return when (item.itemId) {
+            // Si se ha pulsado el item de Acerca de...
             R.id.action_acercade -> {
-                // Diálogo que se muestra al pulsar "Acerca de"
                 AlertDialog.Builder(this)
-                    .setIcon(R.drawable.icono) // <-- Usa el nombre de tu fichero PNG
-
+                    .setIcon(R.drawable.icono)
                     .setTitle(getString(R.string.acerca_de))
                     .setMessage(getString(R.string.desarrollado_por))
                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
@@ -96,13 +111,12 @@ class MainActivity : AppCompatActivity() {
                     .show() // Muestra el diálogo
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
-
+            // Si se ha pulsado el item Ajustes
             R.id.action_ajustes -> {
                 val intent = Intent(this, AjustesActivity::class.java)
                 startActivity(intent)
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
-
 
             else -> super.onOptionsItemSelected(item) // Si no es un item que conozcas, deja que el sistema lo gestione. Sobre todo la flecha de retroceso
         }
