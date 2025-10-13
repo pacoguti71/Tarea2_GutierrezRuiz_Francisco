@@ -11,8 +11,6 @@ Incluye una **toolbar** con las opciones **"Acerca de"** y **"Ajustes"**, con un
 |------------------|--------------------|------------------|
 | ![Lista](screenshots/lista_pikmin.png) | ![Detalle](screenshots/detalle_pikmin.png) | ![Menú](screenshots/menu_toolbar.png) |
 
-> Guarda las imágenes en una carpeta `/screenshots` dentro del repositorio para que se muestren correctamente.
-
 ---
 
 ## 📱 Características principales
@@ -42,37 +40,38 @@ Incluye una **toolbar** con las opciones **"Acerca de"** y **"Ajustes"**, con un
 
 ## 📂 Estructura del proyecto
 
-app/
-├── java/
-│ └── com.example.pikminapp/
-│ ├── MainActivity.kt # Muestra la lista principal de Pikmin
-│ ├── DetalleActivity.kt # Muestra los detalles del Pikmin seleccionado
-│ ├── PikminAdapter.kt # Adaptador del RecyclerView
-│ ├── Pikmin.kt # Clase de datos Pikmin
-│ ├── DataSource.kt # Fuente estática de datos
-│ ├── AcercaDeActivity.kt # Pantalla "Acerca de"
-│ └── AjustesActivity.kt # Pantalla de configuración
-│
-├── res/
-│ ├── layout/
-│ │ ├── activity_main.xml
-│ │ ├── activity_detalle.xml
-│ │ ├── activity_acerca_de.xml
-│ │ ├── activity_ajustes.xml
-│ │ └── item_pikmin.xml
-│ ├── menu/
-│ │ └── toolbar_menu.xml
-│ ├── drawable/ # Imágenes e iconos de Pikmin
-│ ├── values/ # strings.xml, colors.xml, styles.xml
-│ └── mipmap/ # Iconos de la app
-│
-├── screenshots/
-│ ├── lista_pikmin.png
-│ ├── detalle_pikmin.png
-│ └── menu_toolbar.png
-│
-└── AndroidManifest.xml
+AndroidManifest.xml
 
+java/dam/pmdm/tarea2_gutierrezruiz_francisco/AjustesActivity.kt
+java/dam/pmdm/tarea2_gutierrezruiz_francisco/DetallePikminActivity.kt
+java/dam/pmdm/tarea2_gutierrezruiz_francisco/MainActivity.kt
+java/dam/pmdm/tarea2_gutierrezruiz_francisco/Pikmin.kt
+java/dam/pmdm/tarea2_gutierrezruiz_francisco/PikminAdapter.kt
+
+res/font/bebas_neue.ttf
+res/font/bitcount.ttf
+res/font/pikminneue.otf
+
+res/layout/activity_ajustes.xml
+res/layout/activity_detalle_pikmin.xml
+res/layout/activity_main.xml
+res/layout/item_layout.xml
+
+res/menu/menu.xml
+
+res/values-en/strings.xml
+res/values/strings.xml
+res/values/strings.xml
+res/values-en/strings.xml
+
+res/values/themes.xml
+res/values-night/themes.xml
+res/values/themes.xml
+res/values-night/themes.xml
+
+res/values/colors.xml
+
+res/values/styles.xml
 
 ---
 
@@ -85,44 +84,10 @@ app/
 3. Espera la sincronización de Gradle.
 4. Ejecuta la aplicación en un emulador o dispositivo físico con Android 8.0 o superior.
 
-⚙️ Menú de la Toolbar
-
-Archivo: res/menu/toolbar_menu.xml
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/action_acerca"
-        android:title="Acerca de"
-        android:icon="@drawable/ic_info"
-        android:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_ajustes"
-        android:title="Ajustes"
-        android:icon="@drawable/ic_settings"
-        android:showAsAction="ifRoom" />
-</menu>
-
-
-En MainActivity.kt se maneja la selección:
-
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-        R.id.action_acerca -> {
-            startActivity(Intent(this, AcercaDeActivity::class.java))
-            true
-        }
-        R.id.action_ajustes -> {
-            startActivity(Intent(this, AjustesActivity::class.java))
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
-}
-
 🧠 Conceptos reforzados
 
 Este proyecto refuerza el uso de:
- - Arquitectura de una app Android con varias Activities.
+- Arquitectura de una app Android con varias Activities.
 - Implementación de listas dinámicas mediante RecyclerView y adaptadores personalizados.
 - Comunicación entre Activities mediante Intent y Bundle.
 - Creación y manejo de menús con Toolbar.
