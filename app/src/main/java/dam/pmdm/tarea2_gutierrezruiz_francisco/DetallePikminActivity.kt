@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityDetallePikminBinding
-import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityMainBinding
 
 // Actividad que muestra los detalles de un pikmin
 class DetallePikminActivity : AppCompatActivity() {
@@ -37,18 +36,27 @@ class DetallePikminActivity : AppCompatActivity() {
             insets
         }
 
-        // Obtiene los datos del pikmin seleccionado desde el intent
-        val nombre = intent.getStringExtra("nombre")
-        val familia = intent.getStringExtra("familia")
-        val nombreCientifico = intent.getStringExtra("nombreCientifico")
+        // Obtiene los datos del pikmin seleccionado desde el intent. La cadena vacía es el valor por defecto en caso de que no se encuentre el dato
+        val nombreResId = intent.getIntExtra("nombre", R.string.empty_string)
+        val familiaResId = intent.getIntExtra("familia", R.string.empty_string)
+        val nombreCientificoResId = intent.getIntExtra("nombreCientifico", R.string.empty_string)
+        val descripcionResId = intent.getIntExtra("descripcion", R.string.empty_string)
+        val caracteristica1ResId = intent.getIntExtra("caracteristica1", R.string.empty_string)
+        val caracteristica2ResId = intent.getIntExtra("caracteristica2", R.string.empty_string)
+        val caracteristica3ResId = intent.getIntExtra("caracteristica3", R.string.empty_string)
         val esTerrestre = intent.getBooleanExtra("esTerrestre", false)
         val esAcuatico = intent.getBooleanExtra("esAcuatico", false)
         val esAereo = intent.getBooleanExtra("esAereo", false)
-        val descripcion = intent.getStringExtra("descripcion")
-        val caracteristica1 = intent.getStringExtra("caracteristica1")
-        val caracteristica2 = intent.getStringExtra("caracteristica2")
-        val caracteristica3 = intent.getStringExtra("caracteristica3")
         val imagen = intent.getIntExtra("imagen", 0)
+
+        // Convierte los IDs a texto (String) usando getString().
+        val nombre = getString(nombreResId)
+        val familia = getString(familiaResId)
+        val nombreCientifico = getString(nombreCientificoResId)
+        val descripcion = getString(descripcionResId)
+        val caracteristica1 = getString(caracteristica1ResId)
+        val caracteristica2 = getString(caracteristica2ResId)
+        val caracteristica3 = getString(caracteristica3ResId)
 
         // Muestra un mensaje con el nombre del pikmin seleccionado
         val mensaje=getString(R.string.se_ha_seleccionado_un_pikmin, nombre)

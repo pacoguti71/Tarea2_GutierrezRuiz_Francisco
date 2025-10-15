@@ -15,11 +15,14 @@ class PikminAdapter(
     // ViewHolder que contiene los elementos de cada item. Aquí se almacenan las referencias a las vistas (imagen y texto de cada pikmin) dentro del layout
     // En lugar de crear un fichero aparte para el ViewHolder se crea aquí dentro.
     class PikminViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // Obtiene el contexto de la vista
+        val context=itemView.context
+        // Crea un objeto ItemLayoutBinding a partir de la vista. Esto permite acceder a las vistas dentro del layout
         private val binding = ItemLayoutBinding.bind(itemView)
         // La función bind se utiliza para establecer los datos de un objeto Pikmin con los elementos de la vista.
         fun bind(pikmin: Pikmin) {
             binding.imagen.setImageResource(pikmin.imagen)
-            binding.nombre.text = pikmin.nombre
+            binding.nombre.text = context.getString(pikmin.nombre)
         }
     }
 
