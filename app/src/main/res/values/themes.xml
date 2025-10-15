@@ -11,8 +11,13 @@
         <!-- Color del texto y los iconos sobre el color del contenedor primario. -->
         <item name="colorOnPrimaryContainer">@color/black</item>
         <!-- Color secundario: Usado para acentuar partes de la UI, como botones flotantes o controles activos. -->
-        <item name="colorSecondary">@color/verde_oscuro</item>
+        <item name="colorSecondary">@color/verde_pikmin</item>
         <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Atributo para el color de las superficies principales (fondos de pantalla) -->
+        <item name="colorSurface">@color/crema</item>
+        <!-- Color del texto que va SOBRE las superficies (suele ser negro en modo día) -->
+        <item name="colorOnSurface">@color/black</item>
 
         <item name ="android:windowSplashScreenBackground">@color/white</item>
         <item name ="android:windowSplashScreenAnimatedIcon">@drawable/pantalla_splash</item>

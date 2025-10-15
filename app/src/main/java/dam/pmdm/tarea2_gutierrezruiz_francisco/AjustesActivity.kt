@@ -11,12 +11,41 @@ import androidx.core.view.WindowInsetsCompat
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityAjustesBinding
 import java.util.Locale
 
+/**
+ * Actividad que permite al usuario configurar las preferencias de la aplicación, como el modo oscuro y el idioma.
+ *
+ * Esta actividad gestiona la interfaz de usuario para cambiar entre el modo oscuro/claro
+ * y alternar entre los idiomas español (es) e inglés (en). Los cambios se persisten
+ * utilizando [PreferencesHelper].
+ */
 class AjustesActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAjustesBinding // Declaración de la variable binding de tipo ActivityAjustesBinding. Se inicializa después
-    private lateinit var preferencesHelper: PreferencesHelper // Declaración de la variable preferencesHelper de tipo PreferencesHelper. Se inicializa después
+    /**
+     * Variable de binding para acceder a las vistas del layout [ActivityAjustesBinding].
+     * Se inicializa en [onCreate].
+     */
+    private lateinit var binding: ActivityAjustesBinding
 
-    // Metodo onCreate de la actividad
+    /**
+     * Instancia de [PreferencesHelper] para gestionar el almacenamiento y recuperación
+     * de las preferencias del usuario (modo oscuro e idioma). Se inicializa en [onCreate].
+     */
+    private lateinit var preferencesHelper: PreferencesHelper
+
+    /**
+     * Método llamado al crear la actividad.
+     *
+     * Se encarga de:
+     * 1. Llamar al método de la clase padre.
+     * 2. Habilitar el modo de borde a borde (`enableEdgeToEdge`).
+     * 3. Inflar y establecer el layout mediante View Binding.
+     * 4. Configurar la barra de herramientas (Toolbar) como ActionBar y habilitar el botón de retroceso.
+     * 5. Configurar los insets de ventana para la vista principal.
+     * 6. Inicializar [preferencesHelper].
+     * 7. Llamar a [configurarModoOscuro] y [configurarIdioma].
+     *
+     * @param savedInstanceState Objeto Bundle que contiene el estado previamente guardado de la actividad, o null si no hay estado.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Llama al metodo onCreate de la clase padre
         super.onCreate(savedInstanceState)
@@ -51,7 +80,14 @@ class AjustesActivity : AppCompatActivity() {
         configurarIdioma()
     }
 
-    // Metodo para configurar el modo oscuro
+    /**
+     * Configura el comportamiento del Switch para alternar el modo oscuro/claro.
+     *
+     * 1. Lee el modo oscuro guardado en las preferencias.
+     * 2. Establece el estado inicial del Switch (`binding.switchTema`).
+     * 3. Define un `OnCheckedChangeListener` que cambia el modo de la aplicación
+     * ([AppCompatDelegate.setDefaultNightMode]) y guarda la preferencia.
+     */
     private fun configurarModoOscuro() {
         // Obtiene el modo oscuro actual
         val esModoOscuroGuardado = preferencesHelper.esModoOscuro()
@@ -70,7 +106,14 @@ class AjustesActivity : AppCompatActivity() {
         }
     }
 
-    // Metodo para configurar el idioma
+    /**
+     * Configura el comportamiento del Switch para alternar el idioma (Español/Inglés).
+     *
+     * 1. Obtiene el idioma actual del sistema.
+     * 2. Establece el estado inicial del Switch (`binding.switchIdioma`), asumiendo 'es' si está activado.
+     * 3. Define un `OnCheckedChangeListener` que llama a [setIdioma] con 'es' o 'en'
+     * según el estado del Switch.
+     */
     private fun configurarIdioma() {
         // Obtiene el idioma actual
         val idiomaActual = Locale.getDefault().language
@@ -87,7 +130,16 @@ class AjustesActivity : AppCompatActivity() {
         }
     }
 
-    // Función para cambiar el idioma. Le pasa el idioma que se quiere cambiar
+    /**
+     * Cambia el idioma de la aplicación.
+     *
+     * 1. Crea un objeto `Locale` y `LocaleListCompat` para el nuevo idioma.
+     * 2. Establece el nuevo idioma a nivel de aplicación mediante [AppCompatDelegate.setApplicationLocales].
+     * 3. Guarda la preferencia del idioma utilizando [preferencesHelper].
+     * 4. Llama a `recreate()` para que el cambio de idioma se aplique inmediatamente a la actividad.
+     *
+     * @param idioma Código de idioma (ej. "es" para español, "en" para inglés).
+     */
     private fun setIdioma(idioma: String) {
         // Crea un nuevo Locale con el idioma que se quiere cambiar
         val locale = Locale.Builder()
@@ -103,7 +155,14 @@ class AjustesActivity : AppCompatActivity() {
         recreate()
     }
 
-    // Sobrescribe el metodo onOptionsItemSelected de la actividad. Recibe un objeto MenuItem con la opción seleccionada
+    /**
+     * Este método se llama cuando un elemento de la barra de herramientas es seleccionado.
+     *
+     * Maneja la pulsación del botón de retroceso (Home/Up).
+     *
+     * @param item El [MenuItem] seleccionado.
+     * @return `true` si el evento fue manejado, `false` en caso contrario.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             // Si se selecciona el botón de retroceso, llama al metodo onBackPressed de la actividad

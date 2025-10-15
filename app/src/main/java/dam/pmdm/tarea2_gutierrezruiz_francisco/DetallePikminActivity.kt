@@ -10,10 +10,37 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityDetallePikminBinding
 
-// Actividad que muestra los detalles de un pikmin
+/**
+ * Actividad que muestra los detalles completos de un Pikmin específico.
+ *
+ * Esta actividad recibe los datos de un Pikmin a través del Intent que la inicia,
+ * configura la interfaz de usuario con esos datos, y gestiona la visibilidad
+ * de campos opcionales (como las características) si no tienen contenido.
+ */
 class DetallePikminActivity : AppCompatActivity() {
+    /**
+     * Variable de binding para acceder a las vistas del layout [ActivityDetallePikminBinding].
+     * Se inicializa en [onCreate].
+     */
     private lateinit var binding: ActivityDetallePikminBinding
-    // Sobrescribe el metodo onCreate de la actividad. Recibe un objeto Bundle con los datos del pikmin seleccionado
+
+    /**
+     * Sobrescribe el metodo onCreate de la actividad.
+     *
+     * Se encarga de:
+     * 1. Llamar al método de la clase padre.
+     * 2. Habilitar el modo de borde a borde (`enableEdgeToEdge`).
+     * 3. Inflar y establecer el layout mediante View Binding.
+     * 4. Configurar la barra de herramientas (Toolbar) como ActionBar y habilitar el botón de retroceso.
+     * 5. Configurar los insets de ventana para la vista raíz.
+     * 6. Obtener los datos del Pikmin del Intent (utilizando Resource IDs o valores por defecto).
+     * 7. Convertir los Resource IDs de texto a String.
+     * 8. Mostrar un Toast con el nombre del Pikmin seleccionado.
+     * 9. Gestionar la visibilidad de las etiquetas y TextViews de las características opcionales.
+     * 10. Mostrar todos los datos en las vistas correspondientes.
+     *
+     * @param savedInstanceState Objeto Bundle que contiene el estado previamente guardado de la actividad, o null si no hay estado.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Llama al metodo onCreate de la clase padre
         super.onCreate(savedInstanceState)
@@ -36,7 +63,8 @@ class DetallePikminActivity : AppCompatActivity() {
             insets
         }
 
-        // Obtiene los datos del pikmin seleccionado desde el intent. La cadena vacía es el valor por defecto en caso de que no se encuentre el dato
+        // Obtiene los IDs de recursos de las cadenas del Pikmin seleccionado desde el intent.
+        // La cadena vacía (R.string.empty_string) es el valor por defecto en caso de que no se encuentre el dato.
         val nombreResId = intent.getIntExtra("nombre", R.string.empty_string)
         val familiaResId = intent.getIntExtra("familia", R.string.empty_string)
         val nombreCientificoResId = intent.getIntExtra("nombreCientifico", R.string.empty_string)
@@ -59,11 +87,10 @@ class DetallePikminActivity : AppCompatActivity() {
         val caracteristica3 = getString(caracteristica3ResId)
 
         // Muestra un mensaje con el nombre del pikmin seleccionado
-        val mensaje=getString(R.string.se_ha_seleccionado_un_pikmin, nombre)
+        val mensaje = getString(R.string.se_ha_seleccionado_un_pikmin, nombre)
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
 
-        // Oculta las vistas que no tienen datos llamando a la función setVisibleIfNotEmpty con los parametros del valor de la variable y las vistas correspondientes
-        // Como caracteristicaX puede ser null, el metodo acepta null
+        // Oculta las vistas de las características si el texto de la característica está vacío o nulo.
         setVisibleIfNotEmpty(
             caracteristica1,
             binding.labelCaracteristica1,
@@ -72,13 +99,13 @@ class DetallePikminActivity : AppCompatActivity() {
 
         setVisibleIfNotEmpty(
             caracteristica2,
-        binding.labelCaracteristica2,
+            binding.labelCaracteristica2,
             binding.caracteristica2Detalle
         )
 
         setVisibleIfNotEmpty(
             caracteristica3,
-    binding.labelCaracteristica3,
+            binding.labelCaracteristica3,
             binding.caracteristica3Detalle
         )
 
@@ -86,6 +113,7 @@ class DetallePikminActivity : AppCompatActivity() {
         binding.nombreDetalle.text = nombre
         binding.familiaDetalle.text = familia
         binding.nombreCientificoDetalle.text = nombreCientifico
+        // Los CheckBox solo se muestran marcados o desmarcados, no son editables en esta vista.
         binding.checkBoxTerrestre.isChecked = esTerrestre
         binding.checkBoxAcuatico.isChecked = esAcuatico
         binding.checkBoxAereo.isChecked = esAereo
@@ -96,14 +124,30 @@ class DetallePikminActivity : AppCompatActivity() {
         binding.imagenDetalle.setImageResource(imagen)
     }
 
-    // Función que oculta o muestra una vista si el texto está vacío. Recibe un texto y una lista de vistas a modificar.
-    fun setVisibleIfNotEmpty(text: String?, vararg views: View) {
+    /**
+     * Función que gestiona la visibilidad de un conjunto de vistas basándose en si un texto es nulo,
+     * vacío o solo contiene espacios en blanco.
+     *
+     * Utiliza [View.GONE] para ocultar la vista y que no ocupe espacio si el texto está vacío,
+     * o [View.VISIBLE] si el texto tiene contenido.
+     *
+     * @param text El texto a comprobar.
+     * @param views Una lista de vistas ([View]) a las que se aplicará el cambio de visibilidad.
+     */
+    private fun setVisibleIfNotEmpty(text: String?, vararg views: View) {
         // Si el texto está vacío, oculta todas las vistas. Si no, muestra todas las vistas.
         val visibility = if (text.isNullOrBlank()) View.GONE else View.VISIBLE
         views.forEach { it.visibility = visibility }
     }
 
-    // Sobrescribe el metodo onOptionsItemSelected de la actividad. Recibe un objeto MenuItem con la opción seleccionada
+    /**
+     * Este método se llama cuando se pulsa el botón de retroceso en la barra de herramientas.
+     *
+     * Maneja la pulsación del botón de retroceso (Home/Up).
+     *
+     * @param item El [MenuItem] seleccionado.
+     * @return `true` si el evento fue manejado, `false` en caso contrario.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             // Si se selecciona el botón de retroceso, llama al metodo onBackPressed de la actividad

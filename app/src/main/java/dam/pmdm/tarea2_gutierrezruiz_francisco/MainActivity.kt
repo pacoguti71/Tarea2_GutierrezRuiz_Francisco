@@ -14,13 +14,44 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityMainBinding
 
+/**
+ * Actividad principal de la aplicación, muestra una lista de objetos [Pikmin] en un [RecyclerView].
+ *
+ * Esta actividad es responsable de:
+ * 1. Inicializar la interfaz de usuario, incluyendo el Toolbar y el RecyclerView.
+ * 2. Aplicar el tema (Modo Oscuro/Claro) según las preferencias guardadas.
+ * 3. Mostrar la lista de Pikmins utilizando [PikminAdapter].
+ * 4. Manejar el clic en un elemento de la lista para iniciar [DetallePikminActivity].
+ * 5. Gestionar el menú de opciones (Acerca de... y Ajustes).
+ */
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding // Declaración de la variable binding de tipo ActivityMainBinding. Se inicializa después
-    private lateinit var adapter: PikminAdapter // Declaración de la variable adapter de tipo PikminAdapter. Se inicializa después
-    private val elementos: List<Pikmin> =
-        crearListaPikmin() // Declaración de la variable elementos de tipo List<Pikmin>. Se inicializa llamando a la función crearListaPikmin()
+    /**
+     * Variable de binding para acceder a las vistas del layout [ActivityMainBinding].
+     * Se inicializa en [onCreate].
+     */
+    private lateinit var binding: ActivityMainBinding
 
-    // Metodo onCreate de la actividad
+    /**
+     * Adaptador para el [RecyclerView] que maneja la visualización de los objetos [Pikmin].
+     * Se inicializa en [onCreate].
+     */
+    private lateinit var adapter: PikminAdapter
+
+    /**
+     * Lista inmutable de objetos [Pikmin] que se muestra en el [RecyclerView].
+     * Se inicializa con los datos devueltos por [crearListaPikmin].
+     */
+    private val elementos: List<Pikmin> =
+        crearListaPikmin()
+
+    /**
+     * Método llamado al crear la actividad.
+     *
+     * Se encarga de la configuración inicial de la actividad, la aplicación de preferencias
+     * de tema, la inicialización del RecyclerView y la configuración de listeners.
+     *
+     * @param savedInstanceState Objeto Bundle que contiene el estado previamente guardado de la actividad, o null si no hay estado.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Llama al metodo onCreate de la clase padre
         super.onCreate(savedInstanceState)
@@ -43,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         val preferencesHelper = PreferencesHelper(this)
         // Recupera el estado de la preferencia de modo oscuro
         val esModoOscuro = preferencesHelper.esModoOscuro()
-        // Comprueba si el modo oscuro está activado
+        // Comprueba si el modo oscuro está activado y lo aplica. Esto es necesario para que el tema sea correcto al inicio.
         if (esModoOscuro) {
             // Si estaba guardado como oscuro, aplica el modo oscuro
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -52,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        // Asigna un layout al reciclerView para gestionar el diseño en cuadrícula
+        // Asigna un layout al reciclerView para gestionar el diseño en cuadrícula de 3 columnas
         binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         // Muestra un Snackbar con un mensaje de bienvenida
@@ -63,12 +94,11 @@ class MainActivity : AppCompatActivity() {
         ).show()
 
         // Crea un objeto adaptador con los datos de la lista de objetos Pikmin y lo asigna al adaptador del RecyclerView.
-        // pikminSeleccionado es el objeto Pikmin seleccionado que se pasa a la actividad DetallePikminActivity.
+        // Se define un lambda como manejador del clic, que recibe el objeto Pikmin seleccionado.
         adapter = PikminAdapter(elementos) { pikminSeleccionado ->
-            // Crea un intent para iniciar la actividad DetallePikminActivity. En ese intent se pasa el objeto Pikmin seleccionado
+            // Crea un intent para iniciar la actividad DetallePikminActivity.
             val intent = Intent(this, DetallePikminActivity::class.java)
-            // Pasa los datos del objeto Pikmin seleccionado a la actividad DetallePikminActivity. Estos datos se recuperarán en la actividad DetallePikminActivity
-            // Se podría pasar el objeto completo serializando en data class, pero prefiero enviar los datos por separado para mantener el ejemplo simple
+            // Pasa los datos (Resource IDs y booleanos) del objeto Pikmin seleccionado al Intent.
             intent.putExtra("nombre", pikminSeleccionado.nombre)
             intent.putExtra("familia", pikminSeleccionado.familia)
             intent.putExtra("nombreCientifico", pikminSeleccionado.nombreCientifico)
@@ -83,19 +113,32 @@ class MainActivity : AppCompatActivity() {
             // Inicia la actividad DetallePikminActivity
             startActivity(intent)
         }
-        // Asigna el adaptador del RecyclerView para que lo use
+        // Asigna el adaptador al RecyclerView para que lo use
         binding.recyclerView.adapter = adapter
     }
 
-    // Sobreescribe el metodo onCreateOptionsMenu de la actividad para mostrar el menu
-    // El menú se añade dinámicamente en tiempo de ejecución, por lo que no forma parte del layout estático de la actividad.
+    /**
+     * Sobreescribe el metodo onCreateOptionsMenu de la actividad.
+     *
+     * Se utiliza para inflar y mostrar el menú de opciones en el Toolbar.
+     *
+     * @param menu El [Menu] en el que se colocan los elementos.
+     * @return `true` para que el menú se muestre, `false` en caso contrario.
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // El menuInflater toma el fichero XML y crea el menú a partir de él
         menuInflater.inflate(R.menu.menu, menu)
         return true // Devuelve 'true' para indicar que el menú debe mostrarse
     }
 
-    // Sobreescribe el metodo onOptionsItemSelected para gestionar los items del menu
+    /**
+     * Sobreescribe el metodo onOptionsItemSelected de la actividad.
+     *
+     * Gestiona la acción que debe ocurrir cuando se selecciona un elemento del menú de opciones.
+     *
+     * @param item El [MenuItem] que fue seleccionado.
+     * @return `true` si se ha consumido el evento, `false` si debe continuar su propagación.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Usamos una estructura 'when' para comprobar qué item se ha pulsado
         return when (item.itemId) {
@@ -117,11 +160,19 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true // Devuelve 'true' para indicar que has gestionado el clic
             }
-
-            else -> super.onOptionsItemSelected(item) // Si no es un item que conozcas, deja que el sistema lo gestione. Sobre todo la flecha de retroceso
+            // Si no es un item que conozcas, deja que el sistema lo gestione.
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
+    /**
+     * Función que crea y devuelve la lista de objetos [Pikmin] que se mostrarán.
+     *
+     * Todos los campos de texto se almacenan como Resource IDs (Int) para facilitar
+     * la internacionalización y la gestión de recursos.
+     *
+     * @return [List] de objetos [Pikmin].
+     */
     private fun crearListaPikmin(): List<Pikmin> {
         // Lista de pikmins
         return listOf(
@@ -453,6 +504,4 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
-
-
 }
