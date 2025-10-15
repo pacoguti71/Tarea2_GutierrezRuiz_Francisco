@@ -1,46 +1,42 @@
 package dam.pmdm.tarea2_gutierrezruiz_francisco
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class SplashActivity : AppCompatActivity() {
 
-    private val SPLASH_DELAY_TIME: Long = 2000
+    private val tiempoRetardo: Long = 2000 // Declara el tiempo de retardo en milisegundos
 
+    // Metodo que se ejecuta al crear la actividad
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Llama al metodo onCreate de la superclase
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        // 2. ESTABLECE EL LAYOUT PRIMERO Y SIEMPRE
-        setContentView(R.layout.activity_splash)
-
-        // 3. CONFIGURA EL LISTENER DE INSETS POR SEPARADO
-        //    Su única responsabilidad es ajustar el padding.
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        // 4. EJECUTA EL HANDLER EN EL FLUJO PRINCIPAL DEL ONCREATE
-        Handler(Looper.getMainLooper()).postDelayed({
-            // Este bloque se ejecutará después del tiempo de espera
-
-            // 5. CONTEXTO CORRECTO en el Intent
+        // Verifica si la version de Android es mayor o igual a la version de API 31
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            // Si es menor, manejamos la splash manualmente con un Handler.
+            // Establece el layout de la actividad
+            setContentView(R.layout.activity_splash)
+            // Crea una instancia del Handler en el hilo principal y ejecuta una tarea retardada
+            Handler(Looper.getMainLooper()).postDelayed({
+                // Crea un Intent para iniciar la actividad principal
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                // Inicia la actividad principal
+                startActivity(intent)
+                // Finaliza la actividad actual
+                finish()
+            }, tiempoRetardo)
+            // Si la version de Android es mayor o igual a la version de API 31, usamos la splash nativa
+        } else {
+            // Establece el layout de la actividad
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
-
-            // Inicia MainActivity
+            // Inicia la actividad principal
             startActivity(intent)
-
-            // Finaliza la SplashActivity para que no se pueda volver a ella
+            // Finaliza la actividad actual
             finish()
-
-        }, SPLASH_DELAY_TIME)
+        }
     }
 }
