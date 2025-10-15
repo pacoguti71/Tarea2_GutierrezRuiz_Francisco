@@ -100,6 +100,4 @@ Francisco Gutiérrez Ruiz
 
 🪴 Licencia
 
-Este proyecto se distribuye bajo la licencia MIT.
-Consulta el archivo LICENSE
- para más información.
+Este proyecto se distribuye bajo la licencia...
