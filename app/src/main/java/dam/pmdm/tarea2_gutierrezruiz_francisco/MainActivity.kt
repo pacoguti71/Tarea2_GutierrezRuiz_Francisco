@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.RecyclerView
+
 
 /**
  * Actividad principal de la aplicación, muestra una lista de objetos [Pikmin] en un [RecyclerView].

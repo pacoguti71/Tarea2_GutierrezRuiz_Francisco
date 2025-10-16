@@ -23,6 +23,8 @@
         android:layout_height="0dp"
         android:background="?attr/colorSurface"
         android:fillViewport="true"
+        android:paddingBottom="24dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
