@@ -1,6 +1,5 @@
 package dam.pmdm.tarea2_gutierrezruiz_francisco
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import dam.pmdm.tarea2_gutierrezruiz_francisco.databinding.ItemCardviewLayoutBinding
 
